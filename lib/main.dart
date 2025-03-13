@@ -23,6 +23,29 @@ class CountView extends StatefulWidget {
 }
 
 class _CountViewState extends State<CountView> {
+
+  int count = 0;
+
+  increment(){
+    setState(() {
+      count++;
+    });
+  }
+
+  decrement(){
+    setState(() {
+      if(count ==0){
+       return null;
+      }count--;
+    });
+  }
+
+  reset(){
+    setState(() {
+      count = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,14 +53,22 @@ class _CountViewState extends State<CountView> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Center(child: Text("0",style: TextStyle(fontSize: 30),)),
+          Center(child: Text("count:$count",style: const TextStyle(fontSize: 30),)),
           const SizedBox(height: 10,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-            ElevatedButton(onPressed: (){}, child: Icon(Icons.remove)),
-            ElevatedButton(onPressed: (){}, child: Icon(Icons.add))
-          ],)
+            ElevatedButton(onPressed: (){
+              decrement();
+            }, child: Icon(Icons.remove)),
+            ElevatedButton(onPressed: (){
+              increment();
+            }, child: Icon(Icons.add))
+          ],),
+          SizedBox(height: 10,),
+          ElevatedButton(onPressed: (){
+            reset();
+          }, child: Text("Reset"))
         ],
       )
 
